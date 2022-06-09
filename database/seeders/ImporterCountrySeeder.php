@@ -14,7 +14,7 @@ class ImporterCountrySeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 5; $i++)
+        for($i = 1; $i < 5; $i++)
         {
             DB::table('importer_countries')->insert([
                 'name' => 'Страна_импортёра_' . $i,
