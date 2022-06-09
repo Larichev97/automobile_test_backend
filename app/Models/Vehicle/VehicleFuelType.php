@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Vehicle;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,5 +35,23 @@ class VehicleFuelType extends Model
     public function Vehicles()
     {
         return $this->hasMany(Vehicle::class, 'fuel_type_id', 'id');
+    }
+
+    /**
+     * @return array
+     */
+    public static function getFuelsItemsList() : array
+    {
+        $fuels = self::all();
+
+        $fuel_items = [];
+
+        if (!empty($fuels)) {
+            foreach ($fuels as $fuel) {
+                $fuel_items[$fuel->id] = $fuel->name;
+            }
+        }
+
+        return $fuel_items;
     }
 }

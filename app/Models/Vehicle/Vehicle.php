@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Vehicle;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,7 +62,7 @@ class Vehicle extends Model
      */
     public function VehicleModel()
     {
-        return $this->hasOne(VehicleMark::class, 'id', 'model_id');
+        return $this->hasOne(VehicleModel::class, 'id', 'model_id');
     }
 
     /**
