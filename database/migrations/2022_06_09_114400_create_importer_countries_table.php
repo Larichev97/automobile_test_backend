@@ -15,7 +15,7 @@ class CreateImporterCountriesTable extends Migration
     {
         Schema::create('importer_countries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
         });
     }
 
