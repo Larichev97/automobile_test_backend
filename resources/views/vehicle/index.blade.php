@@ -54,18 +54,14 @@
                                         <td>{{ $vehicle->vin }}</td>
                                         <td>{{ $vehicle->vehicleFuelType->name }}</td>
                                         <td>{{ $vehicle->engine_volume }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($vehicle->production_date)->format('d.m.Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($vehicle->production_date)->format('Y') }}</td>
                                         <td>{{ $vehicle->price }}</td>
                                         <td>{{ $vehicle->importerCountry->name }}</td>
                                         <td class="text-right py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
                                                 <a href="{{ route('vehicle.show', $vehicle->id) }}" class="btn btn-info mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Просмотреть</a>
                                                 <a href="{{ route('vehicle.edit', $vehicle->id) }}" class="btn btn-primary mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Редактировать</a>
-                                                <form action="{{ route('vehicle.delete', $vehicle->id) }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <input type="submit" class="btn btn-danger" style="padding: 4px 6px;" value="Удалить">
-                                                </form>
+                                                <a href="#" onclick="deleteVehicle($(this))" data-vehicle_id = "{{ $vehicle->id }}" class="btn btn-danger mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Удалить</a>
                                             </div>
 
                                         </td>
@@ -81,5 +77,41 @@
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+    <script type="text/javascript">
+        const deleteVehicle = function (elem) {
+            Swal.fire({
+                title: "Предупреждение",
+                text: 'Вы действительно хотите удалить транспортное средство?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: `Да`,
+                cancelButtonText: `Нет`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    let vehicle = elem.data("vehicle_id");
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{url('/vehicles/delete')}}/" + vehicle,
+                        data: {_token: CSRF_TOKEN},
+                        dataType: 'JSON',
+                        success: function (results) {
+                            if (results) {
+                                swal.fire("Успех!", "Транспортное средство удалено.", "success");
+
+                                setTimeout(function(){
+                                    location.reload();
+                                },2000);
+                            } else {
+                                swal.fire("Ошибка!", "Транспортное средство не удалено.", "error");
+                            }
+                        }
+                    });
+                }
+            })
+        }
+    </script>
 @endsection
 

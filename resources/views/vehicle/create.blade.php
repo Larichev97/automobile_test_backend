@@ -83,13 +83,11 @@
                                 <input type="date" value="{{ old('production_date') }}" name="production_date" id="production_date" class="form-control" placeholder="Укажите год производства ТС...">
                             </div>
 
-
                             <div class="form-group">
                                 <label for="price">Цена авто ($)</label>
 
                                 <input type="number" step="0.01" min="0" value="{{ old('price') }}" name="price" id="price" class="form-control" placeholder="Укажите цену авто ($)...">
                             </div>
-
 
                             <div class="form-group">
                                 <label for="importer_country_id">Страна Импортёра</label>

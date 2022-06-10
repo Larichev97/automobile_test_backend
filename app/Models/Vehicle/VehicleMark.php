@@ -10,6 +10,11 @@ class VehicleMark extends Model
     use HasFactory;
 
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
      * @var string[]
      */
     protected $fillable = [

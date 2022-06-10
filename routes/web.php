@@ -28,5 +28,18 @@ Route::group(['prefix' => 'vehicles'], function () {
     Route::get('/{vehicle}/edit', [\App\Http\Controllers\Vehicle\VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::get('/{vehicle}', [\App\Http\Controllers\Vehicle\VehicleController::class, 'show'])->name('vehicle.show');
     Route::patch('/{vehicle}', [\App\Http\Controllers\Vehicle\VehicleController::class, 'update'])->name('vehicle.update');
-    Route::delete('/{vehicle}', [\App\Http\Controllers\Vehicle\VehicleController::class, 'delete'])->name('vehicle.delete');
+    Route::post('/delete/{vehicle}', [\App\Http\Controllers\Vehicle\VehicleController::class, 'delete'])->name('vehicle.delete');
+});
+
+/**
+ *  Delivery
+ */
+Route::group(['prefix' => 'deliveries'], function () {
+    Route::get('/', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'index'])->name('delivery.index');
+    Route::get('/create', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'create'])->name('delivery.create');
+    Route::post('/', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'store'])->name('delivery.store');
+    Route::get('/{delivery}/edit', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'edit'])->name('delivery.edit');
+    Route::get('/{delivery}', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'show'])->name('delivery.show');
+    Route::patch('/{delivery}', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'update'])->name('delivery.update');
+    Route::post('/delete/{delivery}', [\App\Http\Controllers\Delivery\DeliveryPriceController::class, 'delete'])->name('delivery.delete');
 });

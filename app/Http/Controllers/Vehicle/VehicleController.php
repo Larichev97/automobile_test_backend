@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreVehicleRequest;
-use App\Http\Requests\UpdateVehicleRequest;
+use App\Http\Requests\Vehicle\StoreVehicleRequest;
+use App\Http\Requests\Vehicle\UpdateVehicleRequest;
 use App\Models\Vehicle\Vehicle;
 
 class VehicleController extends Controller
@@ -76,12 +76,12 @@ class VehicleController extends Controller
 
     /**
      * @param Vehicle $vehicle
-     * @return \Illuminate\Http\RedirectResponse
+     * @return bool
      */
     public function delete(Vehicle $vehicle)
     {
         $vehicle->delete();
 
-        return redirect()->route('vehicle.index');
+        return true;
     }
 }

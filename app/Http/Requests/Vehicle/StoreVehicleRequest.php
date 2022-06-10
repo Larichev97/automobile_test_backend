@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Vehicle;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateVehicleRequest extends FormRequest
+class StoreVehicleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class UpdateVehicleRequest extends FormRequest
             'fuel_type_id' => 'required|integer',
             'engine_volume' => 'required|max:255',
             'production_date' => 'date_format:Y-m-d',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
             'importer_country_id' => 'required|integer',
         ];
     }

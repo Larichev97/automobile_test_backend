@@ -54,7 +54,7 @@
                                 </tr>
                                 <tr>
                                     <td>Год производства</td>
-                                    <td>{{ \Carbon\Carbon::parse($vehicle->production_date)->format('d.m.Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($vehicle->production_date)->format('Y') }}</td>
                                 </tr>
                                 <tr>
                                     <td>Цена авто ($)</td>
