@@ -15,14 +15,15 @@ class CustomsPaymentController extends Controller
      */
     public function calculate(Request $request)
     {
-        $vehicle = Vehicle::findOrFail($request['id']);
+        $vehicle = Vehicle::findOrFail($request->id);
 
-        $delivery_price = $request['price'];
+        $delivery_price = $request->delivery_price;
 
-        $exchange_rate = 30; // test (курc валют пары USD: EUR)
+        $exchange_rate = 1.0517; // (курc валют пары USD: EUR)
 
         $customs_payment = new VehicleCustomsPayment($vehicle, $delivery_price, $exchange_rate);
 
-        return \json_encode($customs_payment->calculateCustomsPayment());
+        //return \json_encode($customs_payment->calculateCustomsPayment());
+        return response()->json([$customs_payment->calculateCustomsPayment(), 'Расчёт выполнен!']);
     }
 }

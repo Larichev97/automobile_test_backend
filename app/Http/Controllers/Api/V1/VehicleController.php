@@ -13,13 +13,13 @@ class VehicleController extends Controller
     /**
      *  Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $query = Vehicle::all();
 
-        return VehicleResource::collection($query);
+        return response()->json([VehicleResource::collection($query), 'OK!']);
     }
 
     /**
