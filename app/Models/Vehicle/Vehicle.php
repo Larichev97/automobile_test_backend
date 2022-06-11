@@ -11,6 +11,10 @@ class Vehicle extends Model
     use HasFactory;
     use SoftDeletes;
 
+    const FUEL_DIESEL = 1;
+    const FUEL_GASOLINE = 2;
+
+
     /**
      * @var string[]
      */
