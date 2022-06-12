@@ -3,27 +3,32 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomsPayment\StoreCustomsPaymentRequest;
 use App\Http\Services\CustomsPayment\VehicleCustomsPayment;
-use App\Models\Vehicle\Vehicle;
 use Illuminate\Http\Request;
 
 
 class CustomsPaymentController extends Controller
 {
     /**
-     *  Calculation of custom payment.
+     *  Calculation of customs payment.
+     *
+     * @param StoreCustomsPaymentRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function calculate(Request $request)
+    public function calculate(StoreCustomsPaymentRequest $request): \Illuminate\Http\JsonResponse
     {
-        $vehicle = Vehicle::findOrFail($request->id);
+        $exchange_rate = 1.05; // (курc валют пары USD: EUR)
 
-        $delivery_price = $request->delivery_price;
+        $customs_payment = new VehicleCustomsPayment(
+            $request->fuel_type_id,
+            $request->engine_volume,
+            $request->production_year,
+            $request->vehicle_price,
+            $request->delivery_price,
+            $exchange_rate
+        );
 
-        $exchange_rate = 1.0517; // (курc валют пары USD: EUR)
-
-        $customs_payment = new VehicleCustomsPayment($vehicle, $delivery_price, $exchange_rate);
-
-        //return \json_encode($customs_payment->calculateCustomsPayment());
-        return response()->json([$customs_payment->calculateCustomsPayment(), 'Расчёт выполнен!']);
+        return response()->json($customs_payment->calculateCustomsPayment());
     }
 }

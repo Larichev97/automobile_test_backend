@@ -19,7 +19,7 @@ class VehicleController extends Controller
     {
         $query = Vehicle::all();
 
-        return response()->json([VehicleResource::collection($query), 'OK!']);
+        return response()->json(VehicleResource::collection($query));
     }
 
     /**

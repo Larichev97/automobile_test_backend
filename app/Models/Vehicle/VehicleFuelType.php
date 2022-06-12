@@ -9,6 +9,10 @@ class VehicleFuelType extends Model
 {
     use HasFactory;
 
+
+    const FUEL_DIESEL = 1;
+    const FUEL_GASOLINE = 2;
+
     /**
      * @var bool
      */

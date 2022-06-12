@@ -2,32 +2,32 @@
 
 namespace App\Http\Services\CustomsPayment;
 
-use App\Models\Vehicle\Vehicle;
+use App\Models\Vehicle\VehicleFuelType;
 use Carbon\Carbon;
 
 class VehicleCustomsPayment implements CustomsPaymentInterface
 {
-
-    /**
-     * @var Vehicle
-     */
-    private $vehicle;
-
-    private $delivery_price; // "D"
-    private $exchange_rate; // "X"
-    private $vehicle_price; // "P"
     private $fuel; // "F"
     private $engine_volume; // "V"
     private $production_year; // "Y"
+    private $vehicle_price; // "P"
+    private $delivery_price; // "D"
+    private $exchange_rate; // "X"
 
     /**
-     * @param Vehicle $vehicle
+     * @param int $fuel
+     * @param $engine_volume
+     * @param $production_year
+     * @param $vehicle_price
      * @param $delivery_price
      * @param $exchange_rate
      */
-    public function __construct(Vehicle $vehicle, $delivery_price, $exchange_rate)
+    public function __construct(int $fuel, $engine_volume, $production_year, $vehicle_price, $delivery_price, $exchange_rate)
     {
-        $this->vehicle = $vehicle;
+        $this->fuel = $fuel;
+        $this->engine_volume = $engine_volume;
+        $this->production_year = (int) Carbon::parse($production_year)->format('Y');
+        $this->vehicle_price = $vehicle_price;
         $this->delivery_price = $delivery_price;
         $this->exchange_rate = $exchange_rate;
     }
@@ -37,8 +37,6 @@ class VehicleCustomsPayment implements CustomsPaymentInterface
      */
     public function calculateCustomsPayment() :array
     {
-        $this->setOptions();
-
         // Акциз
         $excise = (($this->calculateFuelCoefficient() * $this->calculateVehicleAgeCoefficient() * $this->getEngineVolume()) / 1000) * $this->exchange_rate;
 
@@ -56,27 +54,11 @@ class VehicleCustomsPayment implements CustomsPaymentInterface
     }
 
     /**
-     * @return void
-     */
-    private function setVehiclePrice()
-    {
-        $this->vehicle_price = $this->vehicle->price;
-    }
-
-    /**
      * @return mixed
      */
     private function getVehiclePrice()
     {
         return $this->vehicle_price;
-    }
-
-    /**
-     * @return void
-     */
-    private function setFuel()
-    {
-        $this->fuel = (int) $this->vehicle->fuel_type_id;
     }
 
     /**
@@ -88,14 +70,6 @@ class VehicleCustomsPayment implements CustomsPaymentInterface
     }
 
     /**
-     * @return void
-     */
-    private function setEngineVolume()
-    {
-        $this->engine_volume = $this->vehicle->engine_volume;
-    }
-
-    /**
      * @return mixed
      */
     private function getEngineVolume()
@@ -104,14 +78,9 @@ class VehicleCustomsPayment implements CustomsPaymentInterface
     }
 
     /**
-     * @return void
+     * @return int
      */
-    private function setProductionYear()
-    {
-        $this->production_year = (int) Carbon::parse($this->vehicle->production_date)->format('Y');
-    }
-
-    private function getProductionYear()
+    private function getProductionYear(): int
     {
         return $this->production_year;
     }
@@ -123,9 +92,7 @@ class VehicleCustomsPayment implements CustomsPaymentInterface
      */
     private function calculateDeclaredValue()
     {
-        $r = $this->getVehiclePrice() + $this->delivery_price;
-
-        return $r;
+        return $this->getVehiclePrice() + $this->delivery_price;
     }
 
     /**
@@ -157,35 +124,15 @@ class VehicleCustomsPayment implements CustomsPaymentInterface
     {
         $l = 0;
 
-        if ($this->vehicle::FUEL_DIESEL === $this->getFuel()) {
-            if ($this->getEngineVolume() > 3500) {
-                $l = 150;
-            } else {
-                $l = 75;
-            }
+        if (VehicleFuelType::FUEL_DIESEL === $this->getFuel()) {
+            $l = ($this->getEngineVolume() > 3500) ? 150 : 75;
         }
 
-        if ($this->vehicle::FUEL_GASOLINE === $this->getFuel()) {
-            if ($this->getEngineVolume() > 3000) {
-                $l = 100;
-            } else {
-                $l = 50;
-            }
+        if (VehicleFuelType::FUEL_GASOLINE === $this->getFuel()) {
+            $l = ($this->getEngineVolume() > 3000) ? 100 : 50;
         }
 
         return $l;
     }
-
-    /**
-     * @return void
-     */
-    private function setOptions()
-    {
-        $this->setVehiclePrice();
-        $this->setFuel();
-        $this->setEngineVolume();
-        $this->setProductionYear();
-    }
-
 
 }
