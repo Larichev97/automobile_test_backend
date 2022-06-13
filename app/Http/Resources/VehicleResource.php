@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Delivery\DeliveryPrice;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,9 +25,7 @@ class VehicleResource extends JsonResource
             'mark' => $this->vehicleMark,
             'model' => $this->vehicleModel,
             'fuel' => $this->vehicleFuelType,
-            'importer_country' => $this->importerCountry,
-
-            'delivery' => DeliveryPrice::all(),
+            'delivery' => $this->importerCountry,
         ];
     }
 }

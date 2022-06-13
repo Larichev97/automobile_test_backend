@@ -16,6 +16,7 @@ class CreateImporterCountriesTable extends Migration
         Schema::create('importer_countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->float('price', '10', '2')->default(0);
         });
     }
 

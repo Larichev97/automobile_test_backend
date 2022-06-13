@@ -34,9 +34,9 @@
                             @method('patch')
 
                             <div class="form-group">
-                                <label for="country_name">Страна</label>
+                                <label for="name">Страна</label>
 
-                                <input type="text" value="{{ $delivery->country_name }}" name="country_name" id="country_name" class="form-control" placeholder="Укажите страну...">
+                                <input type="text" value="{{ $delivery->name }}" name="name" id="name" class="form-control" placeholder="Укажите страну...">
                             </div>
 
                             <div class="form-group">

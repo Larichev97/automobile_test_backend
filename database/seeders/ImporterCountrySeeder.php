@@ -17,7 +17,8 @@ class ImporterCountrySeeder extends Seeder
         for($i = 1; $i < 5; $i++)
         {
             DB::table('importer_countries')->insert([
-                'name' => 'Страна_импортёра_' . $i,
+                'name' => 'Страна_импортёр_' . $i,
+                'price' => \mt_rand(500.00, 3000.00),
             ]);
         }
     }

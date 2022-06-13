@@ -43,13 +43,13 @@
                                 <tbody>
                                 @foreach($deliveries as $delivery)
                                     <tr>
-                                        <td>{{ $delivery->country_name }}</td>
+                                        <td>{{ $delivery->name }}</td>
                                         <td>{{ $delivery->price }}</td>
                                         <td class="text-right py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
                                                 <a href="{{ route('delivery.show', $delivery->id) }}" class="btn btn-info mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Просмотреть</a>
                                                 <a href="{{ route('delivery.edit', $delivery->id) }}" class="btn btn-primary mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Редактировать</a>
-                                                <a href="#" onclick="deleteDeliveryPrice($(this))" data-delivery_id = "{{ $delivery->id }}" data-country_name = "{{ $delivery->country_name }}" class="btn btn-danger mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Удалить</a>
+                                                <a href="#" onclick="deleteDeliveryPrice($(this))" data-delivery_id = "{{ $delivery->id }}" data-country_name = "{{ $delivery->name }}" class="btn btn-danger mr-2" style="border-radius: 0.25rem; font-size: 1rem; vertical-align: center; padding: 4px 6px !important;">Удалить</a>
                                             </div>
                                         </td>
                                     </tr>

@@ -2,10 +2,11 @@
 
 namespace App\Models\Delivery;
 
+use App\Models\Vehicle\Vehicle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DeliveryPrice extends Model
+class ImporterCountry extends Model
 {
     use HasFactory;
 
@@ -18,14 +19,14 @@ class DeliveryPrice extends Model
      * @var string[]
      */
     protected $fillable = [
-        'country_name',
+        'name',
         'price',
     ];
 
     /**
      * @var string
      */
-    protected $table = 'delivery_prices';
+    protected $table = 'importer_countries';
 
     /**
      * @var bool
@@ -34,20 +35,30 @@ class DeliveryPrice extends Model
 
 
     /**
+     *  Vehicles connection
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function Vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'importer_country_id', 'id');
+    }
+
+    /**
      * @return array
      */
-    public static function getDeliveryCountryPriceItemsList() : array
+    public static function getImporterCountryItemsList() : array
     {
         $countries = self::all();
 
-        $country_price_items = [];
+        $country_items = [];
 
         if (!empty($countries)) {
             foreach ($countries as $country) {
-                $country_price_items[$country->id] = $country->country_name . '(' . $country->price . ')';
+                $country_items[$country->id] = $country->name . ' (' . $country->price . ')';
             }
         }
 
-        return $country_price_items;
+        return $country_items;
     }
 }

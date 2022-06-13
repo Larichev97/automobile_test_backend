@@ -57,7 +57,8 @@
                             <div class="form-group">
                                 <label for="vin">VIN</label>
 
-                                <input type="text" value="{{ old('vin') }}" name="vin" id="vin" class="form-control" placeholder="Укажите VIN...">
+                                <input type="text" value="{{ old('vin') }}" name="vin" id="vin" class="form-control"
+                                       placeholder="Укажите VIN...">
                             </div>
 
                             <div class="form-group">
@@ -74,19 +75,24 @@
                             <div class="form-group">
                                 <label for="engine_volume">Объём двигателя</label>
 
-                                <input type="number" min="1" value="{{ old('engine_volume') }}" name="engine_volume" id="engine_volume" class="form-control" placeholder="Укажите объём двигателя ТС...">
+                                <input type="number" min="1" value="{{ old('engine_volume') }}" name="engine_volume"
+                                       id="engine_volume" class="form-control"
+                                       placeholder="Укажите объём двигателя ТС...">
                             </div>
 
                             <div class="form-group">
                                 <label for="production_date">Год производства</label>
 
-                                <input type="date" value="{{ old('production_date') }}" name="production_date" id="production_date" class="form-control" placeholder="Укажите год производства ТС...">
+                                <input type="date" value="{{ old('production_date') }}" name="production_date"
+                                       id="production_date" class="form-control"
+                                       placeholder="Укажите год производства ТС...">
                             </div>
 
                             <div class="form-group">
                                 <label for="price">Цена авто ($)</label>
 
-                                <input type="number" step="0.01" min="0" value="{{ old('price') }}" name="price" id="price" class="form-control" placeholder="Укажите цену авто ($)...">
+                                <input type="number" step="0.01" min="0" value="{{ old('price') }}" name="price"
+                                       id="price" class="form-control" placeholder="Укажите цену авто ($)...">
                             </div>
 
                             <div class="form-group">
@@ -94,7 +100,7 @@
 
                                 <select name="importer_country_id" id="importer_country_id" class="form-control">
                                     <option disabled selected>Укажите страну Импортёра ТС...</option>
-                                    @foreach(\App\Models\Vehicle\ImporterCountry::getImporterCountryItemsList() as $importer_country__key => $importer_country_value)
+                                    @foreach(\App\Models\Delivery\ImporterCountry::getImporterCountryItemsList() as $importer_country__key => $importer_country_value)
                                         <option {{ old('importer_country_id') == $importer_country__key ? 'selected' : '' }} value="{{ $importer_country__key }}">{{ $importer_country_value }}</option>
                                     @endforeach
                                 </select>
