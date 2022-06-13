@@ -2,6 +2,7 @@
 
 namespace App\Models\Vehicle;
 
+use App\Models\Delivery\ImporterCountry;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

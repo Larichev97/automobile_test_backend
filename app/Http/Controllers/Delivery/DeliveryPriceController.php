@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Delivery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Delivery\StoreDeliveryRequest;
 use App\Http\Requests\Delivery\UpdateDeliveryRequest;
-use App\Models\Delivery\DeliveryPrice;
+use App\Models\Delivery\ImporterCountry;
 
 class DeliveryPriceController extends Controller
 {
@@ -14,7 +14,7 @@ class DeliveryPriceController extends Controller
      */
     public function index()
     {
-        $deliveries = DeliveryPrice::all();
+        $deliveries = ImporterCountry::all();
 
         return view('delivery.index', compact('deliveries'));
     }
@@ -35,35 +35,35 @@ class DeliveryPriceController extends Controller
     {
         $date = $request->validated();
 
-        DeliveryPrice::firstOrCreate($date);
+        ImporterCountry::firstOrCreate($date);
 
         return redirect()->route('delivery.index');
     }
 
     /**
-     * @param DeliveryPrice $delivery
+     * @param ImporterCountry $delivery
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(DeliveryPrice $delivery)
+    public function show(ImporterCountry $delivery)
     {
         return view('delivery.show', compact('delivery'));
     }
 
     /**
-     * @param DeliveryPrice $delivery
+     * @param ImporterCountry $delivery
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(DeliveryPrice $delivery)
+    public function edit(ImporterCountry $delivery)
     {
         return view('delivery.edit', compact('delivery'));
     }
 
     /**
      * @param UpdateDeliveryRequest $request
-     * @param DeliveryPrice $delivery
+     * @param ImporterCountry $delivery
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateDeliveryRequest $request, DeliveryPrice $delivery)
+    public function update(UpdateDeliveryRequest $request, ImporterCountry $delivery)
     {
         $data = $request->validated();
 
@@ -73,10 +73,10 @@ class DeliveryPriceController extends Controller
     }
 
     /**
-     * @param DeliveryPrice $delivery
+     * @param ImporterCountry $delivery
      * @return bool
      */
-    public function delete(DeliveryPrice $delivery)
+    public function delete(ImporterCountry $delivery)
     {
         $delivery->delete();
 

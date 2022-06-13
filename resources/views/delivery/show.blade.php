@@ -34,7 +34,7 @@
                                 <tbody>
                                 <tr>
                                     <td>Страна</td>
-                                    <td>{{ $delivery->country_name }}</td>
+                                    <td>{{ $delivery->name }}</td>
                                 </tr>
                                 <tr>
                                     <td>Цена доставки</td>

@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
             VehicleFuelTypeSeeder::class,
             VehicleMarkSeeder::class,
             VehicleModelSeeder::class,
-            DeliveryCountrySeeder::class,
         ]);
     }
 }

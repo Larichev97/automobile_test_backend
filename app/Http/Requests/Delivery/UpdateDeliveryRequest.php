@@ -24,7 +24,7 @@ class UpdateDeliveryRequest extends FormRequest
     public function rules()
     {
         return [
-            'country_name' => 'required|max:255',
+            'name' => 'required|max:255',
             'price' => 'required|numeric|min:0',
         ];
     }
